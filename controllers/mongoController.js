@@ -3,6 +3,7 @@ const mongoose = require('mongoose'); // library for mongodb
 const dotenv = require('dotenv'); // environment variables
 // simplify the integration between Mongoose and Passport for local authentication
 const passportLocalMongoose = require('passport-local-mongoose');
+const findOrCreate = require('mongoose-findorcreate');
 
 dotenv.config();
 
@@ -28,16 +29,15 @@ function connect() {
         console.log('Connected to database..');
         // create schema
         const userSchema = mongoose.Schema({
-          email: {
-            type: String,
-          },
-          password: {
-            type: String,
-          },
+          email: String,
+          password: String,
+          googleId: String,
+          secret: String,
         });
 
         // add passport as a plugin to the schema
         userSchema.plugin(passportLocalMongoose);
+        userSchema.plugin(findOrCreate);
         // create model
         const User = mongoose.model('users', userSchema);
         resolve(User);
