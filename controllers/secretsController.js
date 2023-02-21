@@ -1,11 +1,19 @@
 module.exports = function (app, User) {
   // GET secrets
   app.get('/secrets', (req, res) => {
+    var showLogInButton = false;
+    if (req.isAuthenticated()) {
+      showLogInButton = true;
+    }
+
     // get all secrets from db
     User.find({ secret: { $ne: null } })
       .then((results) => {
         if (results) {
-          res.render('secrets', { usersWithSecrets: results });
+          res.render('secrets', {
+            usersWithSecrets: results,
+            loggedIn: showLogInButton,
+          });
         }
       })
       .catch((err) => {

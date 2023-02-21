@@ -1,9 +1,12 @@
 <%- include('partials/header') %>
-<div class="container mt-5">
-  <h1>Register</h1>
 
-  <div class="row">
-    <div class="col-sm-8">
+<div class="container mt-5">
+  <div class="text-center p-4">
+    <h1 class="display-4">Register</h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-5">
       <div class="card">
         <div class="card-body">
           <!-- Makes POST request to /register route -->
@@ -16,13 +19,13 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password" />
             </div>
-            <button type="submit" class="btn btn-dark">Register</button>
+            <button type="submit" class="btn btn-dark mt-3">Register</button>
           </form>
         </div>
       </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-md-3">
       <div class="card social-block">
         <div class="card-body">
           <a
