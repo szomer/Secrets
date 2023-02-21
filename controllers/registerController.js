@@ -1,22 +1,19 @@
-// Modules
-const bodyParser = require('body-parser');
 // Controllers
 const error = require('./errorController');
-
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
 
 // route /register
 module.exports = function (app, User, passport) {
   app
     .route('/register')
 
-    // GET register
+    // GET register page
     .get((req, res) => {
       res.render('register');
     })
 
-    // POST register
-    .post(urlencodedParser, (req, res) => {
+    // POST register user
+    .post((req, res) => {
+      // register user
       User.register(
         { username: req.body.username },
         req.body.password,
@@ -25,8 +22,14 @@ module.exports = function (app, User, passport) {
             console.log(err);
             res.redirect('/register');
           } else {
-            passport.authenticate('local')(req, res, function () {
-              res.redirect('/');
+            // authentication
+            passport.authenticate('local')(req, res, function (err) {
+              if (err) {
+                console.log(err);
+                res.redirect('/register');
+              } else {
+                res.redirect('/secrets');
+              }
             });
           }
         }
