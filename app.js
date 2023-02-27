@@ -1,61 +1,77 @@
 // Modules
 require('dotenv').config();
 const express = require('express');
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const mongoose = require('mongoose');
+const session = require('express-session');
 
-// Controllers
-const loginController = require('./controllers/loginController');
-const mongoController = require('./controllers/mongoController');
-const secretsController = require('./controllers/secretsController');
-const passportController = require('./controllers/passportController');
-
-// Variables
-const app = express();
+// ENV
+const url = process.env.MONGO_URL;
 const port = process.env.PORT || 3000;
 
-// App set/use
+// Sass Compiler
+// const sassCompiler = require('./services/sassCompiler');
+// sassCompiler();
+
+// Models
+const userModel = require('./models/user');
+
+// App
+const app = express();
+var router = express.Router();
 app.set('view engine', 'ejs');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/assets', express.static(__dirname + '/public'));
-app.use(express.json()); // to support JSON-encoded bodies
-app.use(express.urlencoded({ extended: true })); // to support URL-encoded bodies
+
+// Session
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    resave: false, // forces the session to be saved back to the session store
-    saveUninitialized: false, // forces a session that is “uninitialized” to be saved to the store
-    cookie: { secure: false },
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
   })
 );
-app.use(passport.initialize()); // init passport on every route call.
-app.use(passport.session()); // allow passport to use "express-session".
 
-// GET Home page
-app.get('/', (req, res) => {
-  res.render('home');
+// User model
+const User = userModel;
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+const options = {
+  autoIndex: false, // Don't build indexes
+  maxPoolSize: 10, // Maintain up to 10 socket connections
+  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  family: 4, // Use IPv4, skip trying IPv6
+};
+// strictQuery will become false in mongoose 7
+mongoose.set('strictQuery', false);
+// Connect db
+mongoose.connect(url, options).then(() => {
+  console.log('Database Connnected..');
 });
 
-// database connection
-mongoController
-  .then((User) => {
-    // passport controller
-    passportController(app, passport, User);
+// Routes
+var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+app.use('/', indexRouter);
+app.use('/', authRouter);
 
-    // api controllers
-    loginController(app, User, passport);
-    secretsController(app, User, passport);
+app.get('*', (req, res) => {
+  res.render('error');
+});
 
-    // Redirect when non-matching route
-    app.all('*', function (req, res) {
-      res.redirect('/');
-    });
+// Listen on port
+app.listen(port, () => {
+  console.log(`Listening on port ${port}..`);
+});
 
-    // listen to port
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}..`);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+module.exports = router;
