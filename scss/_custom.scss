@@ -30,7 +30,7 @@ html {
 
   a {
     text-decoration: none;
-    color: $pink;
+    color: $accent;
     font-size: 1.3rem;
   }
 
@@ -56,4 +56,20 @@ footer {
     text-align: center;
     color: white;
   }
+}
+
+#google_card {
+  background-color: #d6443c;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgb(255, 255, 255);
+
+  #google_btn {
+    font-size: 1.1rem;
+    color: white;
+  }
+}
+
+#google_card:hover {
+  background-color: #d9534c;
+  cursor: pointer;
 }

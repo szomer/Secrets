@@ -36,7 +36,10 @@ router.get('/secrets', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
   User.find({ secret: { $ne: null } })
     .then((results) => {
       if (results) {
-        const formattedUsername = capitalizeFirstLetter(req.user.username);
+        var formattedUsername = '';
+        if (req.user.username) {
+          formattedUsername = ', ' + capitalizeFirstLetter(req.user.username);
+        }
         res.render('secrets', {
           username: formattedUsername,
           secrets: results,
@@ -54,7 +57,7 @@ router.get('/logout', function (req, res) {
     if (err) {
       res.redirect('/secrets');
     } else {
-      res.redirect('/login');
+      res.redirect('/');
     }
   });
 });
@@ -75,12 +78,12 @@ router.post('/submit', connectEnsureLogin.ensureLoggedIn(), (req, res) => {
           res.redirect('/secrets');
         });
       } else {
-        res.redirect('/');
+        res.redirect('/secrets');
       }
     })
     .catch((err) => {
       console.log(err);
-      res.redirect('/submit');
+      res.redirect('/secrets');
     });
 });
 

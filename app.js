@@ -10,12 +10,15 @@ const session = require('express-session');
 const url = process.env.MONGO_URL;
 const port = process.env.PORT || 3000;
 
+// Models
+const userModel = require('./models/user');
+
+// Controllers
+const googleController = require('./controllers/googleController');
+
 // Sass Compiler
 // const sassCompiler = require('./services/sassCompiler');
 // sassCompiler();
-
-// Models
-const userModel = require('./models/user');
 
 // App
 const app = express();
@@ -42,8 +45,14 @@ const User = userModel;
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 const options = {
   autoIndex: false, // Don't build indexes
@@ -58,6 +67,8 @@ mongoose.set('strictQuery', false);
 mongoose.connect(url, options).then(() => {
   console.log('Database Connnected..');
 });
+
+googleController(app);
 
 // Routes
 var indexRouter = require('./routes/index');

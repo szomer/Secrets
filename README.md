@@ -13,11 +13,13 @@
 
 > Endpoint <code>/</code> ![alt Home Page](img/secrets3.jpg?raw=true)
 
-> Endpoint <code>/login</code> ![alt Login App](img/secrets4.jpg?raw=true)
+> Endpoint <code>/login</code> ![alt Login page](img/secrets4.jpg?raw=true)
 
-> Endpoint <code>/secrets</code> ![alt Login App](img/secrets1.jpg?raw=true)
+> Endpoint <code>/secrets</code> ![alt Secrets page](img/secrets1.jpg?raw=true)
 
-> Endpoint <code>/submit</code> ![alt Login App](img/secrets2.jpg?raw=true)
+> Endpoint <code>/submit</code> ![alt Submit page](img/secrets2.jpg?raw=true)
+
+> Endpoint <code>/error</code> ![alt Error page](img/secrets5.jpg?raw=true)
 
 ## Database collections
 

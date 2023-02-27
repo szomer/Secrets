@@ -1,10 +1,13 @@
 <%- include('partials/header', {btns: ''}) %>
-    <div class="container h-100">
-      <div class="row h-100 justify-content-center align-items-center">
-        <div class="col-lg-6">
-          <h1 class="text-center display-3 mb-3">Access Your Account</h1>
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+    
+      <div class="row align-items-center justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center display-3 mb-3">Access Your Account</h1>
           <hr/>
-          <div class="mx-5 px-5">
+        </div>  
+        
+        <div class="col-md-7 col-lg-5 m-3">
             <a href="/">Return to Homepage</a>
             <form action="/login" method="POST">
               <input
@@ -19,8 +22,23 @@
                 type="password"
                 name="password"
               />
-              <button class="w-100 btn btn-dark" type="submit">Sign In</button>
+              <button class="w-100 btn btn-dark mb-3" type="submit">Sign In</button>
             </form>
+        </div>
+
+        <div class="col-auto my-3">
+          <div class="card">
+            <div id="google_card" class="card-body">
+              <a
+                id="google_btn"
+                class="text-light text-center"
+                href="/auth/google"
+                role="button"
+              >
+                <i class="fab fa-google me-2"></i>
+                Sign In with Google
+              </a>
+            </div>
           </div>
         </div>
       </div>
