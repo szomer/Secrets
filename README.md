@@ -11,14 +11,14 @@
 
 ## Screenshots
 
-> <code>/</code> ![alt Home Page](img/secrets3.jpg?raw=true)
+> Endpoint <code>/</code> ![alt Home Page](img/secrets3.jpg?raw=true)
 
-> <code>/login</code> ![alt Login App](img/secrets4.jpg?raw=true)
+> Endpoint <code>/login</code> ![alt Login App](img/secrets4.jpg?raw=true)
 
-> <code>/secrets</code> ![alt Login App](img/secrets1.jpg?raw=true)
+> Endpoint <code>/secrets</code> ![alt Login App](img/secrets1.jpg?raw=true)
 
-> <code>/submit</code> ![alt Login App](img/secrets2.jpg?raw=true)
+> Endpoint <code>/submit</code> ![alt Login App](img/secrets2.jpg?raw=true)
 
 ## Database collections
 
-> Database ![alt Database](img/db.jpg?raw=true)
+> MongoDB <code>users</code> ![alt MongoDB Database](img/db.jpg?raw=true)
