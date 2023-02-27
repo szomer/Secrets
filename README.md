@@ -21,5 +21,4 @@
 
 ## Database collections
 
-> Database
-> ![alt Database](img/db.jpg?raw=true)
+> Database ![alt Database](img/db.jpg?raw=true)
