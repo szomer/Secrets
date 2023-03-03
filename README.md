@@ -1,6 +1,8 @@
 # Secrets App
 
-Technologies used:
+A secure application that allowed users to share their secrets anonymously with others. Secrets can be created, read, updated, and deleted.
+
+## 1. Technologies used
 
 1. **NodeJS** runtime environment
    - **EJS** view engine
@@ -20,18 +22,53 @@ Technologies used:
 
 ---
 
-## Screenshots
+## 2. Database
 
-> Endpoint <code>/</code> ![alt Home Page](img/secrets3.jpg?raw=true)
+Using MongoDB with 2 collections:
 
-> Endpoint <code>/login</code> ![alt Login page](img/secrets4.jpg?raw=true)
+```
+Schema: users {_id, username, salt, hash, secrets}
+Schema: secrets [ {_id, secret} ]
+```
 
-> Endpoint <code>/secrets</code> ![alt Secrets page](img/secrets1.jpg?raw=true)
+How a stored User looks like:
 
-> Endpoint <code>/submit</code> ![alt Submit page](img/secrets2.jpg?raw=true)
+```
+{
+   _id: ObjectId('64021ee2f65e6556557ad5u5'),
+   username: "Emma",
+   salt: "1d9cdec6fe3016817341533a30ef33509d27be87623cecb8s...",
+   hash: "051ee50e1e8de673a6d9a082e9e462855af8b199dcajd9edu...",
+   secrets: [
+      {
+         _id: ObjectId('64021ee9f65e6556557ad5ue'),
+         secret: "When my roommates aren't home, I don't w...",
+      },
+       {
+         _id: ObjectId('64021ef9f65e6556557ads0b'),
+         secret: "Everyday my brother knocks on my door and...",
+      }
+   ]
+}
+```
 
-> Endpoint <code>/error</code> ![alt Error page](img/secrets5.jpg?raw=true)
+---
 
-## Database collection
+## 3. Screenshots
 
-> MongoDB <code>users</code> ![alt MongoDB Database](img/db.jpg?raw=true)
+> <code>/login</code> <code>/register</code> Sign Up or Sign In with an account or google auth.
+> ![alt login and signup page](img/secrets3.jpg?raw=true)
+
+> <code>/secrets</code> The home page with anonymously shared secrets.
+> ![alt secrets page](img/secrets1.jpg?raw=true)
+
+> <code>/submit</code> The submit page where users can share their own secrets.
+> ![alt submit a secret page](img/secrets2.jpg?raw=true)
+
+> <code>/mysecrets</code> The secrets page where users can modify their published secrets .
+> ![alt edit my secrets page](img/secrets6.jpg?raw=true)
+
+> <code>/error</code> Error page for unkown endpoints.
+> ![alt error page](img/secrets5.jpg?raw=true)
+
+---
