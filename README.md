@@ -1,6 +1,7 @@
 # Secrets App
 
-A secure application that allowed users to share their secrets anonymously with others. Secrets can be created, read, updated, and deleted. To view the website live click [HERE](https://secrets-plkr.onrender.com).
+A secure application that allowed users to share their secrets anonymously with others. Secrets can be created, read, updated, and deleted. 
+- To view the website live click [HERE](https://secrets-plkr.onrender.com) (Render hosting service - app goes to sleep while inactive).
 
 ## 1. Technologies used
 
