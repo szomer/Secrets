@@ -27,8 +27,8 @@ A secure application that allowed users to share their secrets anonymously with 
 Using MongoDB with 2 collections:
 
 ```
-Schema: users {_id, username, salt, hash, secrets}
-Schema: secrets [ {_id, secret} ]
+users {_id, username, salt, hash, secrets}
+secrets [ {_id, secret} ]
 ```
 
 How a stored User looks like:
